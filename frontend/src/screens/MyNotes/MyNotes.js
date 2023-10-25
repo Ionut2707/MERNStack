@@ -17,30 +17,28 @@ const MyNotes = () => {
       </Link>
       <Accordion defaultActiveKey="0">
         <Accordion.Item eventKey="0">
-                  <Card style={{ margin: 10 }}>
-                      <Accordion.Header>Title
-                          
-                      </Accordion.Header>
-              <Card.Header style={{ display: "flex" }}>
-                <span
-                  style={{
-                    color: "black",
-                    textDecoration: "none",
-                    flex: 1,
-                    cursor: "pointer",
-                    alignSelf: "center",
-                    fontSize: 18,
-                  }}
-                >
-                  Details
-                </span>
-                <div>
-                  <Button >Edit</Button>
-                  <Button variant="danger" className="mx-2">
-                    Delete
-                  </Button>
-                </div>
-              </Card.Header>
+          <Card style={{ margin: 10 }}>
+            <Card.Header style={{ display: "flex" }}>
+              <span
+                style={{
+                  color: "black",
+                  textDecoration: "none",
+                  flex: 1,
+                  cursor: "pointer",
+                  alignSelf: "center",
+                  fontSize: 18,
+                }}
+              >
+                <Accordion.Header>Title</Accordion.Header>
+              </span>
+
+              <div>
+                <Button>Edit</Button>
+                <Button variant="danger" className="mx-2">
+                  Delete
+                </Button>
+              </div>
+            </Card.Header>
             <Accordion.Body eventKey="0">
               <Card.Body>
                 <h4>
