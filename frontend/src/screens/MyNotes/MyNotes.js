@@ -1,13 +1,22 @@
 import MainScreen from "../../components/MainScreen";
 import { Link } from "react-router-dom";
-import {
-  Accordion,
-  Badge,
-  Button,
-  Card,
-} from "react-bootstrap";
+import { Accordion, Badge, Button, Card } from "react-bootstrap";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
 const MyNotes = () => {
+  const [notes, setNotes] = useState([]);
+
+  const fetchNotes = async () => {
+    const { data } = await axios.get("http://localhost:8000/api/notes");
+    setNotes(data);
+  };
+  console.log(notes);
+
+  useEffect(() => {
+    fetchNotes();
+  }, []);
+
   return (
     <MainScreen title="Welcome Back Ionut-Adrian">
       <Link to="createnote">
@@ -15,48 +24,49 @@ const MyNotes = () => {
           Create New Note
         </Button>
       </Link>
-      <Accordion defaultActiveKey="0">
-        <Accordion.Item eventKey="0">
-          <Card style={{ margin: 10 }}>
-            <Card.Header style={{ display: "flex" }}>
-              <span
-                style={{
-                  color: "black",
-                  textDecoration: "none",
-                  flex: 1,
-                  cursor: "pointer",
-                  alignSelf: "center",
-                  fontSize: 18,
-                }}
-              >
-                <Accordion.Header>Title</Accordion.Header>
-              </span>
-
-              <div>
-                <Button>Edit</Button>
-                <Button variant="danger" className="mx-2">
-                  Delete
-                </Button>
-              </div>
-            </Card.Header>
-            <Accordion.Body eventKey="0">
-              <Card.Body>
-                <h4>
-                  <Badge bg="success" text="light">
-                    Category - A category
-                  </Badge>
-                </h4>
-                <blockquote className="blockquote mb-0">
-                  <p>lorem10</p>
-                  <footer className="blockquote-footer">
-                    Created At: your DAte
-                  </footer>
-                </blockquote>
-              </Card.Body>
-            </Accordion.Body>
-          </Card>
-        </Accordion.Item>
-      </Accordion>
+      {notes.map((note) => (
+        <Accordion key={note._id}>
+          <Accordion.Item eventKey="0">
+            <Card style={{ margin: 10 }}>
+              <Card.Header style={{ display: "flex" }}>
+                <span
+                  style={{
+                    color: "black",
+                    textDecoration: "none",
+                    flex: 1,
+                    cursor: "pointer",
+                    alignSelf: "center",
+                    fontSize: 18,
+                  }}
+                >
+                  <Accordion.Header>{note.title}</Accordion.Header>
+                </span>
+                <div>
+                  <Button>Edit</Button>
+                  <Button variant="danger" className="mx-2">
+                    Delete
+                  </Button>
+                </div>
+              </Card.Header>
+              <Accordion.Body eventKey="0">
+                <Card.Body>
+                  <h4>
+                    <Badge bg="success" text="light">
+                      Category - {note.category}
+                    </Badge>
+                  </h4>
+                  <blockquote className="blockquote mb-0">
+                    <p>{note.content }</p>
+                    <footer className="blockquote-footer">
+                      Created At: your DAte
+                    </footer>
+                  </blockquote>
+                </Card.Body>
+              </Accordion.Body>
+            </Card>
+          </Accordion.Item>
+        </Accordion>
+      ))}
     </MainScreen>
   );
 };
