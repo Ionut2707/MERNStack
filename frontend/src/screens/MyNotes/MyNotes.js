@@ -5,17 +5,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 const MyNotes = () => {
-  const [notes, setNotes] = useState([]);
-
-  const fetchNotes = async () => {
-    const { data } = await axios.get("http://localhost:8000/api/notes");
-    setNotes(data);
-  };
-  console.log(notes);
-
-  useEffect(() => {
-    fetchNotes();
-  }, []);
+ 
 
   return (
     <MainScreen title="Welcome Back Ionut-Adrian">
@@ -24,8 +14,7 @@ const MyNotes = () => {
           Create New Note
         </Button>
       </Link>
-      {notes.map((note) => (
-        <Accordion key={note._id}>
+        <Accordion >
           <Accordion.Item eventKey="0">
             <Card style={{ margin: 10 }}>
               <Card.Header style={{ display: "flex" }}>
@@ -39,7 +28,7 @@ const MyNotes = () => {
                     fontSize: 18,
                   }}
                 >
-                  <Accordion.Header>{note.title}</Accordion.Header>
+                  <Accordion.Header>Title</Accordion.Header>
                 </span>
                 <div>
                   <Button>Edit</Button>
@@ -52,11 +41,11 @@ const MyNotes = () => {
                 <Card.Body>
                   <h4>
                     <Badge bg="success" text="light">
-                      Category - {note.category}
+                      Category - your category
                     </Badge>
                   </h4>
                   <blockquote className="blockquote mb-0">
-                    <p>{note.content }</p>
+                    <p>Content</p>
                     <footer className="blockquote-footer">
                       Created At: your DAte
                     </footer>
@@ -66,7 +55,6 @@ const MyNotes = () => {
             </Card>
           </Accordion.Item>
         </Accordion>
-      ))}
     </MainScreen>
   );
 };

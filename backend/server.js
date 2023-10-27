@@ -47,7 +47,7 @@ app.post("/login", async (req, res) => {
         token: token,
       });
     } else {
-      res.status(400).json({ error: "Invalid password." });
+      res.status(400).json({ error: "Invalid Email or Password." });
     }
   } else {
     res.status(400).json({ error: "User does not exist." });
@@ -79,7 +79,7 @@ app.post("/register", async (req, res) => {
 
   const hash = await bcrypt.hash(password, 10);
 
-  const user = await User.create({ name, email, password: hash });
+  const user = await User.create({ name, email, password: hash, pic });
 
   res.json(user);
 });

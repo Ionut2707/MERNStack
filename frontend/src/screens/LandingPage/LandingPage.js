@@ -1,8 +1,20 @@
 import { Button, Container, Row } from "react-bootstrap";
 import "./LandingPage.css";
-import { Link} from 'react-router-dom'
+import { Link , useNavigate} from 'react-router-dom'
+import { useEffect } from "react";
 
 const LandingPage = () => {
+  const navigate = useNavigate();
+
+     useEffect(() => {
+       const userInfo = localStorage.getItem("userInfo");
+
+       if (userInfo) {
+         navigate("/mynotes");
+       }
+     },[]);
+  
+  
   return (
     <div className="main">
       <Container>
@@ -20,7 +32,7 @@ const LandingPage = () => {
                 <Link to="/register">
                   <Button
                     size="lg"
-                    className="landingbutton"
+                    className="landingbutton "
                     variant="outline-primary"
                   >
                     Register
